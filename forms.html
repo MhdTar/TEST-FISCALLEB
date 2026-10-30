@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="en" dir="ltr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Official Forms | FiscalLeb</title>
+<meta name="description" content="Official CNSS and Ministry of Finance forms for download — FiscalLeb.">
+<link rel="stylesheet" href="css/style.css">
+<script>try{if(localStorage.getItem("theme")==="dark")document.documentElement.setAttribute("data-theme","dark")}catch(e){}</script>
+</head>
+<body data-page="forms">
+
+<div id="site-header"></div>
+
+<main>
+  <section class="section">
+    <div class="container">
+      <div class="eyebrow"><h2>Official Forms & Applications</h2></div>
+      <div class="forms-filter">
+        <button class="btn primary" id="filter-cnss" onclick="filterForms('cnss')">Social Security Forms (CNSS)</button>
+        <button class="btn secondary" id="filter-mof" onclick="filterForms('mof')">MOF FORMS</button>
+      </div>
+
+      <div class="search-box">
+        <input type="search" id="search-input" placeholder="Search / ابحث..." aria-label="Search" autocomplete="off">
+      </div>
+      <div id="forms-container" class="forms-grid"></div>
+    </div>
+  </section>
+
+</main>
+
+<div id="site-footer"></div>
+
+<script src="js/components.js"></script>
+<script src="js/forms-data.js"></script>
+<script src="js/forms.js"></script>
+</body>
+</html>

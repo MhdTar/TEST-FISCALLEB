@@ -1,0 +1,147 @@
+<!doctype html>
+<html lang="en" dir="ltr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Contact Us | FiscalLeb</title>
+<link rel="stylesheet" href="css/style.css">
+<script>try{if(localStorage.getItem("theme")==="dark")document.documentElement.setAttribute("data-theme","dark")}catch(e){}</script>
+</head>
+<body data-page="contact">
+
+<div id="site-header"></div>
+
+<main>
+  <section class="section contact-light" id="contact">
+    <div class="container">
+        <div class="eyebrow"><h2>Contact Us</h2></div>
+      <div class="contactgrid">
+        <div class="contactbox">
+          <div><strong>Email Address</strong><a href="mailto:info@fiscalleb.com">info@fiscalleb.com</a></div>
+          <div><strong>Phone</strong><a href="tel:+96181000463">+961 81 000 463</a></div>
+          <div><strong>WhatsApp</strong><a href="https://wa.me/96181000463" target="_blank" rel="noopener">+961 81 000 463</a></div>
+          <div><strong>Location</strong>Lebanon</div>
+        </div>
+        <div class="contactbox">
+          <strong>Follow Us &amp; Get the App</strong>
+          <div class="social-links">
+            <a href="https://www.facebook.com/fiscalleb/" target="_blank" rel="noopener" class="social-link">
+              <span class="social-logo"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="#1877f2" d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg></span>
+              <span class="social-text"><b>Facebook</b><small>facebook.com/fiscalleb</small></span>
+            </a>
+            <a href="https://whatsapp.com/channel/0029VbDhwCk4o7qNDp6EjR00" target="_blank" rel="noopener" class="social-link">
+              <span class="social-logo wa"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="#fff" d="M18 11v2h4v-2h-4zm-2 6.61c.96.71 2.21 1.65 3.2 2.39.4-.53.8-1.07 1.2-1.6-.99-.74-2.24-1.68-3.2-2.4-.4.54-.8 1.08-1.2 1.61zM20.4 5.6c-.4-.53-.8-1.07-1.2-1.6-.99.74-2.24 1.68-3.2 2.4.4.53.8 1.07 1.2 1.6.96-.72 2.21-1.65 3.2-2.4zM4 9c-1.1 0-2 .9-2 2v2c0 1.1.9 2 2 2h1v4h2v-4h1l5 3V6L8 9H4zm11.5 3c0-1.33-.58-2.53-1.5-3.35v6.69c.92-.81 1.5-2.01 1.5-3.34z"/></svg></span>
+              <span class="social-text"><b>WhatsApp Channel</b><small>Follow our channel</small></span>
+            </a>
+            <a href="https://play.google.com/store/apps/details?id=com.fiscalleb.app" target="_blank" rel="noopener" class="social-link">
+              <span class="social-logo"><svg viewBox="0 0 512 512" aria-hidden="true">
+                <polygon points="60,30 60,482 280,256" fill="#00a0ff"/>
+                <polygon points="60,30 280,256 362,204" fill="#00e676"/>
+                <polygon points="60,482 280,256 362,308" fill="#ff3a44"/>
+                <polygon points="280,256 362,204 452,256 362,308" fill="#ffd400"/>
+              </svg></span>
+              <span class="social-text"><b>Application</b><small>Get it on Google Play</small></span>
+            </a>
+          </div>
+        </div>
+        <div class="contactbox contact-wide">
+          <strong>Request a Consultation</strong>
+          <p>Write your question and leave a phone number or an email (at least one) so we can reply to you.</p>
+          <div class="contact-fields">
+            <div class="form-group">
+              <label for="q-phone">Phone number<bdi class="ar" dir="rtl">رقم الهاتف</bdi></label>
+              <input type="tel" id="q-phone" class="form-control" placeholder="+961 ..." autocomplete="tel">
+            </div>
+            <div class="form-group">
+              <label for="q-email">Email<bdi class="ar" dir="rtl">البريد الإلكتروني</bdi></label>
+              <input type="email" id="q-email" class="form-control" placeholder="name@example.com" autocomplete="email">
+            </div>
+          </div>
+          <textarea id="quick-question" class="form-control" rows="4" placeholder="Write your question here... / اكتب سؤالك هنا..."></textarea>
+          <input type="text" id="q-website" class="hp" tabindex="-1" autocomplete="off" aria-hidden="true">
+          <div class="form-hint" id="q-hint">Please enter a phone number or an email to send your question.</div>
+          <div class="action-buttons">
+            <button type="button" class="btn primary" id="send-question" disabled>Send</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+</main>
+
+<div id="site-footer"></div>
+<script src="js/components.js"></script>
+<script>
+(function () {
+  var TO = 'info@fiscalleb.com'; // used only by the mail-app fallback
+  var phone = document.getElementById('q-phone');
+  var email = document.getElementById('q-email');
+  var question = document.getElementById('quick-question');
+  var sendBtn = document.getElementById('send-question');
+  var hint = document.getElementById('q-hint');
+
+  function validPhone(v) { return v.replace(/\D/g, '').length >= 6; }
+  function validEmail(v) { return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v); }
+  function setHint(text, ok) { hint.textContent = text; hint.classList.toggle('ok', !!ok); }
+
+  function update() {
+    var hasContact = validPhone(phone.value.trim()) || validEmail(email.value.trim());
+    var hasQuestion = question.value.trim() !== '';
+    sendBtn.disabled = !(hasContact && hasQuestion);
+    if (!hasContact) setHint('Please enter a phone number or an email to send your question.');
+    else if (!hasQuestion) setHint('Please write your question.');
+    else setHint('');
+  }
+  [phone, email, question].forEach(function (el) { el.addEventListener('input', update); });
+  update();
+
+  // Opens the visitor's mail app (used only if direct sending fails)
+  function mailtoFallback(body) {
+    window.location.href = 'mailto:' + TO
+      + '?subject=' + encodeURIComponent('Question from FiscalLeb website')
+      + '&body=' + encodeURIComponent(body);
+  }
+
+  sendBtn.addEventListener('click', function () {
+    if (sendBtn.disabled) return;
+    var q = question.value.trim(), p = phone.value.trim(), e = email.value.trim();
+    var body = 'Question:\n' + q + '\n\nPhone: ' + (p || '-') + '\nEmail: ' + (e || '-');
+
+    sendBtn.disabled = true;
+    sendBtn.textContent = 'Sending...';
+    setHint('');
+
+    // The question is sent to our server (/api/contact on Vercel), which emails it to our inbox.
+    // If sending fails, the visitor's mail app is opened instead.
+    // If the visitor gave an email it becomes the Reply-To, so pressing Reply answers them.
+    fetch('/api/contact', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+      body: JSON.stringify({
+        question: q,
+        phone: p,
+        email: e,
+        website: document.getElementById('q-website').value
+      })
+    })
+      .then(function (res) { return res.json().catch(function () { return {}; }).then(function (d) { return { ok: res.ok, d: d }; }); })
+      .then(function (r) {
+        if (!r.ok || !r.d.ok) throw new Error('send failed');
+        phone.value = ''; email.value = ''; question.value = '';
+        sendBtn.textContent = 'Send';
+        sendBtn.disabled = true;
+        setHint('Thank you! Your question was sent. We will contact you soon.', true);
+      })
+      .catch(function () {
+        sendBtn.textContent = 'Send';
+        update();
+        setHint('Could not send automatically. Opening your email app instead...');
+        mailtoFallback(body);
+      });
+  });
+})();
+</script>
+</body>
+</html>

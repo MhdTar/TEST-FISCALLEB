@@ -1,0 +1,154 @@
+<!doctype html>
+<html lang="en" dir="ltr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>FiscalLeb | Accounting • Taxes • Auditing</title>
+<meta name="description" content="FiscalLeb — Accounting, auditing, tax advisory, and social security services in Lebanon.">
+<link rel="stylesheet" href="css/style.css">
+<script>try{if(localStorage.getItem("theme")==="dark")document.documentElement.setAttribute("data-theme","dark")}catch(e){}</script>
+</head>
+<body data-page="home">
+
+<div id="site-header"></div>
+
+<main>
+  <section class="section" id="calculators">
+    <div class="container">
+      <div class="calc-head">
+        <div class="eyebrow"><h2 id="calc-title">Payroll Tax &amp; CNSS Calculator</h2></div>
+        <div class="calc-menu" id="calc-menu">
+          <button type="button" class="calc-menu-btn" id="calc-menu-btn" aria-haspopup="listbox" aria-expanded="false" aria-label="Choose calculator">
+            <svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path d="M6 9l6 6 6-6" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </button>
+          <ul class="calc-menu-list" id="calc-menu-list" role="listbox" hidden>
+            <li role="option" tabindex="0" data-value="payroll" aria-selected="true">Payroll Tax &amp; CNSS Calculator</li>
+            <li role="option" tabindex="0" data-value="penalties" aria-selected="false">CNSS Penalties Calculator</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- CNSS Penalties Calculator -->
+      <div class="unified-calc-box" id="calc-penalties" hidden>
+        <div class="penalty-grid">
+          <div class="form-group">
+            <label for="pen-amount">Amount to be paid (LBP)<bdi class="ar" dir="rtl">المبلغ المراد دفعه</bdi></label>
+            <input type="number" id="pen-amount" class="form-control" min="0" placeholder="Enter the amount" value="0" oninput="runPenaltyCalculation()">
+          </div>
+          <div class="form-group">
+            <label for="pen-due">Original due date of contributions<bdi class="ar" dir="rtl">تاريخ انتهاء المهلة الأصلية للاشتراكات</bdi></label>
+            <input type="date" id="pen-due" class="form-control" oninput="runPenaltyCalculation()">
+          </div>
+          <div class="form-group">
+            <label for="pen-paid">Payment date<bdi class="ar" dir="rtl">تاريخ الدفع</bdi></label>
+            <input type="date" id="pen-paid" class="form-control" oninput="runPenaltyCalculation()">
+          </div>
+          <div class="form-group">
+            <label for="pen-result">Penalty<bdi class="ar" dir="rtl">الغرامة</bdi></label>
+            <input type="text" id="pen-result" class="form-control penalty-result" value="0 LBP" readonly>
+          </div>
+        </div>
+      </div>
+
+      <!-- Payroll Tax & CNSS Calculator -->
+      <div class="unified-calc-box" id="calc-payroll">
+        <div class="master-salary-section">
+          <div class="master-inputs-grid">
+            <div class="form-group">
+              <label>Monthly Salary (LBP)</label>
+              <input type="number" id="master-salary" class="form-control" placeholder="Enter monthly salary" value="0" oninput="runAllCalculations()">
+            </div>
+            <div class="form-group">
+              <label>Marital Status</label>
+              <select id="tax-status" class="form-control" onchange="runAllCalculations()">
+                <option value="single">Single</option>
+                <option value="divorced">Divorced</option>
+                <option value="married_wife_works">Married - Wife works</option>
+                <option value="married_wife_doesnt_work">Married - Wife doesn't work</option>
+                <option value="married_husband_works">Married - Husband works</option>
+                <option value="married_husband_doesnt_work">Married - Husband doesn't work</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label>Dependent Children (Max 5)</label>
+              <input type="number" id="tax-kids" class="form-control" min="0" max="5" value="0" oninput="runAllCalculations()">
+            </div>
+          </div>
+        </div>
+
+                <div class="results-split-grid">
+          <div class="sub-res-column">
+            <h3>Social Security (CNSS)</h3>
+            <div class="res-row"><span>Employee Maternity<bdi class="ar" dir="rtl">مرض وأمومة (الموظف)</bdi></span><b id="cnss-emp-med">0 LBP</b></div>
+            <div class="res-row"><span>Employer Maternity<bdi class="ar" dir="rtl">مرض وأمومة (صاحب العمل)</bdi></span><b id="cnss-pat-med">0 LBP</b></div>
+            <div class="res-row"><span>Employer Family Allowances<bdi class="ar" dir="rtl">تعويضات عائلية (صاحب العمل)</bdi></span><b id="cnss-pat-fam">0 LBP</b></div>
+            <div class="res-row"><span>Employer End of Service<bdi class="ar" dir="rtl">نهاية الخدمة (صاحب العمل)</bdi></span><b id="cnss-pat-eos">0 LBP</b></div>
+            <div class="res-row total"><span>Total Employee Deductions<bdi class="ar" dir="rtl">إجمالي اقتطاعات الموظف</bdi></span><b id="cnss-emp-total">0 LBP</b></div>
+            <div class="res-row total green"><span>Total Employer Contributions<bdi class="ar" dir="rtl">إجمالي مساهمات صاحب العمل</bdi></span><b id="cnss-pat-total">0 LBP</b></div>
+          </div>
+
+          <div class="sub-res-column">
+            <h3>Payroll Tax (Finance)</h3>
+            <div class="res-row"><span>Total Tax-Exempt Allowances<bdi class="ar" dir="rtl">التنزيلات المعفاة من الضريبة</bdi></span><b id="tax-deduction">0 LBP</b></div>
+            <div class="res-row"><span>Taxable Income<bdi class="ar" dir="rtl">المبلغ الخاضع للضريبة</bdi></span><b id="tax-taxable">0 LBP</b></div>
+            <div class="res-row total"><span>Monthly Payroll Tax<bdi class="ar" dir="rtl">الضريبة الشهرية</bdi></span><b id="tax">0 LBP</b></div>
+          </div>
+        </div>
+
+        <div class="family-box">
+          <span>Family Allowances Paid to Employee<bdi class="ar" dir="rtl">التعويضات العائلية المدفوعة للموظف</bdi></span>
+          <b id="family-allowances-paid">0 LBP</b>
+        </div>
+
+        <div class="grand-totals">
+          <div>
+            <div class="label emp">Net Balance Due to Employee<bdi class="ar" dir="rtl">صافي الرصيد المستحق للموظف</bdi></div>
+            <div id="grand-total-employee" class="value">0 LBP</div>
+          </div>
+          <div class="pat-col">
+            <div class="label obl">Net Amount Payable by Employee<bdi class="ar" dir="rtl">صافي التوجب على الموظف</bdi></div>
+            <div id="grand-total-obligation" class="value">0 LBP</div>
+          </div>
+          <div class="pat-col">
+            <div class="label pat">Total Employer Contributions<bdi class="ar" dir="rtl">إجمالي مساهمات صاحب العمل</bdi></div>
+            <div id="grand-total-employer" class="value">0 LBP</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Floating buttons (one column) -->
+<div class="floating-stack">
+  <a href="https://wa.me/+96181000463" class="fab fab-wa" target="_blank" rel="noopener" aria-label="WhatsApp Chat">
+    <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WhatsApp Chat">
+  </a>
+  <a href="https://whatsapp.com/channel/0029VbDhwCk4o7qNDp6EjR00" class="fab fab-wa" target="_blank" rel="noopener" aria-label="WhatsApp Channel">
+    <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="#fff" d="M18 11v2h4v-2h-4zm-2 6.61c.96.71 2.21 1.65 3.2 2.39.4-.53.8-1.07 1.2-1.6-.99-.74-2.24-1.68-3.2-2.4-.4.54-.8 1.08-1.2 1.61zM20.4 5.6c-.4-.53-.8-1.07-1.2-1.6-.99.74-2.24 1.68-3.2 2.4.4.53.8 1.07 1.2 1.6.96-.72 2.21-1.65 3.2-2.4zM4 9c-1.1 0-2 .9-2 2v2c0 1.1.9 2 2 2h1v4h2v-4h1l5 3V6L8 9H4zm11.5 3c0-1.33-.58-2.53-1.5-3.35v6.69c.92-.81 1.5-2.01 1.5-3.34z"/></svg>
+  </a>
+  <a href="tel:+96181000463" class="fab" aria-label="Call us">
+    <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="#16a34a" d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/></svg>
+  </a>
+  <a href="mailto:info@fiscalleb.com" class="fab" aria-label="Email us">
+    <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="#ea4335" d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
+  </a>
+  <a href="https://www.facebook.com/fiscalleb/" class="fab" target="_blank" rel="noopener" aria-label="FiscalLeb on Facebook">
+    <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="#1877f2" d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+  </a>
+  <a href="https://play.google.com/store/apps/details?id=com.fiscalleb.app" class="fab" target="_blank" rel="noopener" aria-label="Get FiscalLeb on Google Play">
+    <svg viewBox="0 0 512 512" aria-hidden="true">
+      <polygon points="60,30 60,482 280,256" fill="#00a0ff"/>
+      <polygon points="60,30 280,256 362,204" fill="#00e676"/>
+      <polygon points="60,482 280,256 362,308" fill="#ff3a44"/>
+      <polygon points="280,256 362,204 452,256 362,308" fill="#ffd400"/>
+    </svg>
+  </a>
+</div>
+
+</main>
+<!-- JAVaScript links -->
+<div id="site-footer"></div>
+<script src="js/components.js"></script>
+<script src="js/calculator.js"></script>
+</body>
+</html>

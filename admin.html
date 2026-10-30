@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="en" dir="ltr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>Admin | FiscalLeb</title>
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body data-page="admin">
+
+<div id="site-header"></div>
+
+<main>
+  <section class="section">
+    <div class="container">
+      <div class="eyebrow">Admin</div>
+      <h2>Manage Circulars & Decisions</h2>
+
+      <!-- Login -->
+      <div id="login-box" class="taamim-upload" style="display:none;max-width:420px;margin-top:25px;">
+        <h3>Admin login</h3>
+        <div class="upload-file">
+          <input type="password" id="admin-password" class="form-control" placeholder="Password" autocomplete="current-password">
+        </div>
+        <button class="btn primary" id="login-btn">Log in</button>
+        <div id="login-msg" class="msg"></div>
+      </div>
+
+      <!-- Admin panel -->
+      <div id="admin-panel" style="display:none;">
+        <div class="admin-bar">
+          <p class="lead" style="margin:0">Files you upload appear on the public page immediately.</p>
+          <button class="btn btn-outline" id="logout-btn">Log out</button>
+        </div>
+
+        <div class="taamim-upload" style="margin-top:25px;">
+          <h3>Publish New Circular / Decision</h3>
+          <div class="upload-row">
+            <input type="text" id="t-title" class="form-control" maxlength="100" placeholder="Circular Title / Subject">
+            <input type="date" id="t-date" class="form-control">
+          </div>
+          <div class="upload-file">
+            <input type="file" id="t-file" class="form-control" accept=".pdf,.doc,.docx,.png,.jpg,.jpeg">
+            <small style="color:var(--muted)">PDF, Word or image — max 4.5 MB</small>
+          </div>
+          <button class="btn primary" id="upload-btn">Publish Circular</button>
+          <div id="upload-msg" class="msg"></div>
+        </div>
+
+        <div id="taamim-container" class="taamim-list"></div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<div id="site-footer"></div>
+
+<script src="js/components.js"></script>
+<script src="js/admin.js"></script>
+</body>
+</html>
